@@ -1,8 +1,11 @@
 import clsx from "clsx";
+import { format, fromUnixTime } from "date-fns";
 import { Link } from "react-router";
 import useMeasure from "react-use-measure";
 import type { Route } from "./+types/home";
+import { Precipitation } from "./components/Precipitation";
 import { Temperature } from "./components/Temerature";
+import { Wind } from "./components/Wind";
 import {
   loadSearchParams,
   serialize,
@@ -112,15 +115,36 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       <article
         ref={ref}
-        className="h-[400px] w-full overflow-hidden rounded-2xl bg-white shadow-blue-400 shadow-lg ring ring-slate-800"
+        className="flex h-[400px] w-full flex-col justify-between overflow-hidden rounded-2xl bg-white shadow-blue-400 shadow-lg ring ring-slate-800"
       >
         {searchParams.tab === "temperature" && (
           <Temperature
             weather={weather}
             width={bounds.width}
-            height={bounds.height}
+            height={bounds.height - 40}
           />
         )}
+        {searchParams.tab === "precipitation" && (
+          <Precipitation
+            weather={weather}
+            width={bounds.width}
+            height={bounds.height - 40}
+          />
+        )}
+        {searchParams.tab === "wind" && (
+          <Wind
+            weather={weather}
+            width={bounds.width}
+            height={bounds.height - 40}
+          />
+        )}
+        <div className="flex w-full items-center whitespace-nowrap px-2 py-2">
+          {weather.map((series) => (
+            <div className="flex-1 text-center" key={series.dt}>
+              <p>{format(fromUnixTime(series.dt), "HH:mm")}</p>
+            </div>
+          ))}
+        </div>
       </article>
 
       <div className="flex items-center justify-between gap-2 self-center rounded-2xl bg-white p-2 shadow-blue-400 shadow-lg ring ring-slate-800">

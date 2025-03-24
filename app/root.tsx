@@ -25,8 +25,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="h-full overflow-x-hidden bg-linear-to-b from-blue-200 to-blue-400 bg-no-repeat">
         <CloudIcon className="-left-32 fixed top-1/3 h-44 animate-float" />
         <CloudIcon className="-right-36 fixed top-2/3 h-44 animate-float-slow" />
-        <main className="mx-auto flex h-full justify-center overflow-hidden pt-20 text-slate-900">
-          <div className="relative w-1/2">
+        <main className="mx-auto flex h-full w-2/3 justify-center pt-20 text-slate-900 xl:w-1/2">
+          <div className="relative w-full">
             <header className="-top-28 absolute right-0 flex items-end gap-x-4">
               <div className="flex flex-col items-end gap-3">
                 <h1>

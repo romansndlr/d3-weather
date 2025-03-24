@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import { format, fromUnixTime } from "date-fns";
 import { motion } from "motion/react";
 import { useHomeSearchParams } from "../search-params";
 import type { ForecastItem } from "../types";
@@ -47,7 +46,7 @@ export function Temperature({
     .area<ForecastItem>()
     .curve(d3.curveMonotoneX)
     .x((d) => graphXScale(accessors.x(d)))
-    .y0(() => height - margin.bottom)
+    .y0(() => height)
     .y1((d) => yScale(accessors.y(d)));
 
   const linePath = lineGenerator(weather);
@@ -55,69 +54,62 @@ export function Temperature({
 
   return (
     width && (
-      <div>
-        <svg
-          key={searchParams.day}
-          width={width}
-          height={height - margin.bottom}
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0%"
-                stopColor="var(--color-yellow-500)"
-                stopOpacity="0.6"
-              />
-              <stop
-                offset="100%"
-                stopOpacity="0"
-                stopColor="var(--color-yellow-300)"
-              />
-            </linearGradient>
-          </defs>
-          {weather.map((point) => (
-            <motion.text
-              key={point.dt}
-              x={temperatureXScale(accessors.x(point))}
-              y={yScale(accessors.y(point)) - 5}
-              textAnchor="middle"
-              dominantBaseline="text-after-edge"
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
-            >
-              {accessors.y(point).toFixed(0)}
-            </motion.text>
-          ))}
-          {areaPath && (
-            <motion.path
-              animate={{ d: areaPath }}
-              fill="url(#areaGradient)"
-              initial={false}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+      <svg
+        key={searchParams.day}
+        width={width}
+        height={height}
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop
+              offset="0%"
+              stopColor="var(--color-yellow-500)"
+              stopOpacity="0.6"
             />
-          )}
-          {linePath && (
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, ease: "easeInOut", delay: 0.6 }}
-              fill="none"
-              stroke="var(--color-yellow-500)"
-              strokeWidth={2}
-              d={linePath}
+            <stop
+              offset="100%"
+              stopOpacity="0"
+              stopColor="var(--color-yellow-300)"
             />
-          )}
-        </svg>
-        <div className="flex w-full items-center whitespace-nowrap">
-          {weather.map((series) => (
-            <div className="flex-1 text-center" key={series.dt}>
-              <p>{format(fromUnixTime(series.dt), "HH:mm")}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+          </linearGradient>
+        </defs>
+        {weather.map((point) => (
+          <motion.text
+            key={point.dt}
+            x={temperatureXScale(accessors.x(point))}
+            y={yScale(accessors.y(point)) - 5}
+            textAnchor="middle"
+            dominantBaseline="text-after-edge"
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+          >
+            {accessors.y(point).toFixed(0)}
+          </motion.text>
+        ))}
+        {areaPath && (
+          <motion.path
+            animate={{ d: areaPath, opacity: 1 }}
+            initial={{ opacity: 0 }}
+            fill="url(#areaGradient)"
+            transition={{
+              opacity: { duration: 0.4, ease: "easeInOut", delay: 0.2 },
+            }}
+          />
+        )}
+        {linePath && (
+          <motion.path
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            fill="none"
+            stroke="var(--color-yellow-500)"
+            strokeWidth={2}
+            d={linePath}
+          />
+        )}
+      </svg>
     )
   );
 }
