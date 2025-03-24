@@ -9,23 +9,36 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@date-fns/tz": "^1.2.0",
     "@react-router/node": "^7.3.0",
     "@react-router/serve": "^7.3.0",
+    "@types/d3": "^7.4.3",
+    "axios": "^1.8.3",
+    "clsx": "^2.1.1",
+    "d3": "^7.9.0",
+    "date-fns": "^4.1.0",
     "isbot": "^5.1.17",
+    "lodash-es": "^4.17.21",
+    "motion": "^12.5.0",
+    "nuqs": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.3.0"
+    "react-router": "^7.3.0",
+    "react-use-measure": "^2.1.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@react-router/dev": "^7.3.0",
-    "@tailwindcss/vite": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
     "react-router-devtools": "^1.1.0",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.0.14",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-tsconfig-paths": "^5.1.4"
-  }
+  },
+  "packageManager": "yarn@4.0.0+sha512.955259c0370ab8c06d013faa7d5e7addb6914251029695675f54e04c917ea6b092c379ba8d3521556d90b3874e5037759467072f01d2295341ead43cc259f14b"
 }
