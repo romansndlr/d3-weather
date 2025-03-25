@@ -7,9 +7,6 @@ import {
 import { getDays } from "./utils";
 
 export const searchParamsMap = {
-  tab: parseAsStringEnum(["temperature", "precipitation", "wind"]).withDefault(
-    "temperature",
-  ),
   day: parseAsStringEnum(getDays()).withDefault(getDays()[0]),
 };
 

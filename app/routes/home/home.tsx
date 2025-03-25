@@ -3,9 +3,7 @@ import { format, fromUnixTime } from "date-fns";
 import { Link } from "react-router";
 import useMeasure from "react-use-measure";
 import type { Route } from "./+types/home";
-import { Precipitation } from "./components/Precipitation";
 import { Temperature } from "./components/Temerature";
-import { Wind } from "./components/Wind";
 import {
   loadSearchParams,
   serialize,
@@ -71,73 +69,15 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
       </header>
 
-      <nav className="flex w-fit gap-1 rounded-full bg-white p-1 shadow shadow-blue-400 ring ring-slate-800">
-        <Link
-          className={clsx(
-            "rounded-full px-2 py-1 font-normal transition-colors",
-            searchParams.tab === "temperature" &&
-              "bg-yellow-50 font-medium shadow-md ring ring-slate-900",
-          )}
-          to={serialize({
-            tab: "temperature",
-            day: searchParams.day,
-          })}
-        >
-          Temperature
-        </Link>
-        <Link
-          className={clsx(
-            "rounded-full px-2 py-1 font-normal transition-colors",
-            searchParams.tab === "precipitation" &&
-              "bg-yellow-50 font-medium shadow-md ring ring-slate-900",
-          )}
-          to={serialize({
-            tab: "precipitation",
-            day: searchParams.day,
-          })}
-        >
-          Precipitation
-        </Link>
-        <Link
-          className={clsx(
-            "rounded-full px-2 py-1 font-normal transition-colors",
-            searchParams.tab === "wind" &&
-              "bg-yellow-50 font-medium shadow-md ring ring-slate-900",
-          )}
-          to={serialize({
-            tab: "wind",
-            day: searchParams.day,
-          })}
-        >
-          Wind
-        </Link>
-      </nav>
-
       <article
         ref={ref}
         className="flex h-[400px] w-full flex-col justify-between overflow-hidden rounded-2xl bg-white shadow-blue-400 shadow-lg ring ring-slate-800"
       >
-        {searchParams.tab === "temperature" && (
-          <Temperature
-            weather={weather}
-            width={bounds.width}
-            height={bounds.height - 40}
-          />
-        )}
-        {searchParams.tab === "precipitation" && (
-          <Precipitation
-            weather={weather}
-            width={bounds.width}
-            height={bounds.height - 40}
-          />
-        )}
-        {searchParams.tab === "wind" && (
-          <Wind
-            weather={weather}
-            width={bounds.width}
-            height={bounds.height - 40}
-          />
-        )}
+        <Temperature
+          weather={weather}
+          width={bounds.width}
+          height={bounds.height - 40}
+        />
         <div className="flex w-full items-center whitespace-nowrap px-2 py-2">
           {weather.map((series) => (
             <div className="flex-1 text-center" key={series.dt}>
@@ -156,10 +96,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
           return (
             <Link
-              to={serialize({
-                day,
-                tab: searchParams.tab,
-              })}
+              to={serialize({ day })}
               className={clsx(
                 "flex flex-col items-center px-6 py-2 transition-colors",
                 day === searchParams.day &&
