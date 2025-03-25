@@ -3,7 +3,7 @@ import { format, fromUnixTime } from "date-fns";
 import { Link } from "react-router";
 import useMeasure from "react-use-measure";
 import type { Route } from "./+types/home";
-import { Temperature } from "./components/Temerature";
+import { Temperature } from "./components/Temperature";
 import {
   loadSearchParams,
   serialize,
